@@ -5,7 +5,6 @@
 package com.cybernostics.spring.thymeleaf.jsp.tag;
 
 import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
@@ -15,7 +14,6 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.thymeleaf.context.WebContext;
-import org.thymeleaf.fragment.DOMSelectorFragmentSpec;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 
 /**
@@ -36,7 +34,7 @@ public class InsertThymeleaFragmentfTag extends SimpleTagSupport
     private String name;
 
     /**
-     * An optional css selector to render only a fragment of the specified 
+     * An optional css selector to render only a fragment of the specified
      * ThymeLeaf template
      */
     private String fragment;
@@ -49,11 +47,14 @@ public class InsertThymeleaFragmentfTag extends SimpleTagSupport
 
         SpringTemplateEngine springTemplateEngine = WebApplicationContextUtils.getWebApplicationContext(((PageContext) getJspContext()).getServletContext()).getBean(SpringTemplateEngine.class);
 
-        DOMSelectorFragmentSpec fragmentSpec = !StringUtils.isBlank(fragment) ? new DOMSelectorFragmentSpec(fragment) : null;
-
         HttpServletRequest request = (HttpServletRequest) page.getRequest();
         WebContext webContext = new WebContext(request, (HttpServletResponse) page.getResponse(), request.getServletContext());
-        out.println(springTemplateEngine.process(name, webContext, fragmentSpec));
+
+        if (!StringUtils.isBlank(fragment))
+        {
+            out.println(springTemplateEngine.process(fragment, webContext));
+        }
+
     }
 
     public void setLocation(String name)

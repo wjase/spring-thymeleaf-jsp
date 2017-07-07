@@ -5,7 +5,6 @@
 package com.cybernostics.spring.thymeleaf.jsp.view;
 
 import java.util.Locale;
-
 import org.springframework.core.Ordered;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
@@ -40,7 +39,7 @@ public class ThymeleafJSPViewResolver implements Ordered, ViewResolver
 
     public int getOrder()
     {
-        return Ordered.HIGHEST_PRECEDENCE - 5;
+        return Ordered.HIGHEST_PRECEDENCE;
     }
 
     public View resolveViewName(String viewName, Locale locale) throws Exception
